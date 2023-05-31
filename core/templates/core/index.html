@@ -1,0 +1,439 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Welcome{% endblock %}
+{% block content %}
+<!doctype html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="https://cdn.tailwindcss.com"></script>
+
+      
+        <link rel="stylesheet" href="static/css/styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header class="container header active" id="home">
+            <div class="header-content">
+                <div class="left-header">
+                    <div class="h-shape"></div>
+                    <div class="image">
+                        <img src="static/img/slide1.jpg" alt="">
+                    </div>
+                </div>
+                <div class="right-header">
+                    <h1 class="name">
+                        Welcome to <span> ELYADA </span>
+                        Real Estate.
+                    </h1>
+                    <p>
+                        ELYADA Dream Homes - our development project in the center of Addis Ababa.<br> Choose your home<br>
+                        We're here and ready to help you.
+                        Login and Register online, or give us a call
+                    </p>
+                </div>
+            </div>
+        </header>
+        <main>
+            <section class="container about" id="about">
+                <div class="main-title">
+                    <h2>Login <span>here</span><span class="bg-text">Login</span></h2>
+                </div>
+                <nav class="py-6 px-6 flex justify-between items-center border-b border-gray-200">
+                    <a href="/" class="text-xl font-semibold">Home</a>
+        
+                    <div class="space-x-6">
+                        <a href="{% url 'item:new' %}" class="text-lg font-semibold hover:text-gray-500">New item</a>
+                        <a href="{% url 'item:items' %}" class="text-lg font-semibold hover:text-gray-500">Browse</a>
+        
+                        {% if request.user.is_authenticated %}
+                            <a href="{% url 'conversation:inbox' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Inbox</a>
+                            <a href="{% url 'dashboard:index' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Dashboard</a>
+                            <a href="logout" class="px-6 py-3 text-lg font-semibold bg-indigo-500 text-white rounded-xl hover:bg-gray-700">logout</a>
+                            {% else %}
+                            <a href="{% url 'core:signup' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
+                            <a href="{% url 'core:login' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
+                        {% endif %}
+                    </div>
+                </nav>
+                
+                <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+                    <h2 class="mb-12 text-2xl text-center">Newest items</h2>
+                
+                    <div class="grid grid-cols-3 gap-3">
+                        {% for item in items %}
+                            <div>
+                                <a href="{% url 'item:detail' item.id %}">
+                                    <div>
+                                        <img src="{{ item.image.url }}" class="rounded-t-xl">
+                                    </div>
+                
+                                    <div class="p-6 bg-white rounded-b-xl">
+                                        <h2 class="text-2xl">{{ item.name }}</h2>
+                                        <p class="text-gray-500">Price: {{ item.price }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+                    <h2 class="mb-12 text-2xl text-center">Categories</h2>
+            
+                    <div class="grid grid-cols-3 gap-3">
+                        {% for category in categories %}
+                            <div>
+                                <a href="#">
+                                    <div class="p-6 bg-white rounded-b-xl">
+                                        <h2 class="text-2xl">{{ category.name }}</h2>
+                                        <p class="text-gray-500">{{ category.items.count }} items</p>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            <section class="container" id="portfolio">
+                <div class="main-title">
+                    <h2>New <span>Projects</span><span class="bg-text">Projects</span></h2>
+                </div>
+                <p class="port-text">
+                    Here are some of our projects that are on finishing in different living sites.
+                </p>
+                <div class="portfolios">
+                    <div class="portfolio-item">
+                        <div class="image">
+                            <img src="static/img/slide3.jpg" alt="">
+                            <div class="blog-text">
+                                <p>
+                                    An investment project from a leading developer in the most picturesque place in Arada - the 4-kilo area. 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="image">
+                            <img src="static/img/2.jpg" alt="">
+                            <div class="blog-text">
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="image">
+                            <img src="static/img/4.jpg" alt="">
+                            <div class="blog-text">
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="image">
+                            <img src="static/img/news2.jpg" alt="">
+                            <div class="blog-text">
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="image">
+                            <img src="static/img/16.jpg" alt="">
+                            <div class="blog-text">
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="image">
+                            <img src="static/img/18.jpg" alt="">
+                            <div class="blog-text">
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="image">
+                            <img src="static/img/24.jpg" alt="">
+                            <div class="blog-text">
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="image">
+                            <img src="static/img/36.jpg" alt="">
+                            <div class="blog-text">
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="image">
+                            <img src="static/img/42.jpg" alt="">
+                            <div class="blog-text">
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="image">
+                            <img src="static/img/60.jpg" alt="">
+                            <div class="blog-text">
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="image">
+                            <img src="static/img/80.jpg" alt="">
+                            <div class="blog-text">
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="container" id="blogs">
+                <div class="blogs-content">
+                    <div class="main-title">
+                        <h2>Completed <span>Projects</span><span class="bg-text">Blogs</span></h2>
+                    </div>
+                    <div class="blogs">
+                        <div class="blog">
+                            <img src="static/img/78.jpg" alt="">
+                            <div class="blog-text">
+                                <h4>
+                                    4-kilo area
+                                </h4>
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                        <div class="blog">
+                            <img src="static/img/35.jpg" alt="">
+                            <div class="blog-text">
+                                <h4>
+                                    Ayat area
+                                </h4>
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                        <div class="blog">
+                            <img src="static/img/66.jpg" alt="">
+                            <div class="blog-text">
+                                <h4>
+                                    Bole area
+                                </h4>
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                        <div class="blog">
+                            <img src="static/img/65.jpg" alt="">
+                            <div class="blog-text">
+                                <h4>
+                                    Legehar area
+                                </h4>
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                        <div class="blog">
+                            <img src="static/img/62.jpg" alt="">
+                            <div class="blog-text">
+                                <h4>
+                                    Piazza area
+                                </h4>
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                        <div class="blog">
+                            <img src="static/img/5.jpg" alt="">
+                            <div class="blog-text">
+                                <h4>
+                                    Sarris area
+                                </h4>
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                                    Doloribus natus voluptas, eos obcaecati recusandae amet?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="container contact" id="contact">
+                <div class="contact-container">
+                    <div class="main-title">
+                        <h2>Contact <span>Us</span><span class="bg-text">Contact</span></h2>
+                    </div>
+                    <div class="contact-content-con">
+                        <div class="left-contact">
+                            <h4>Contact us here</h4>
+                            <p>
+                                request more details about property using the following contacts 
+                            </p>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <div class="icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>Location</span>
+                                    </div>
+                                    <p>
+                                        : Addis Ababa, Ethiopia
+                                    </p>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="icon">
+                                        <i class="fas fa-envelope"></i>
+                                        <span>Email</span>
+                                    </div>
+                                    <p>
+                                        <span>: elyada21@gmail.com</span>
+                                    </p>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="icon">
+                                        <i class="fab fa-whatsapp"></i>
+                                        <span>Whatsapp</span>
+                                    </div>
+                                    <p>
+                                        <span>: 07522670617</span>
+                                    </p>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="icon">
+                                        <i class="fab fa-telegram"></i>
+                                        <span>Mobile Number</span>
+                                    </div>
+                                    <p>
+                                        <span>: 07522670617</span>
+                                    </p>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="icon">
+                                        <i class="fas fa-fax"></i>
+                                        <span>Fax</span>
+                                    </div>
+                                    <p>
+                                        <span>: 07522670617</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="contact-icons">
+                                <div class="contact-icon">
+                                    <a href="www.facebook.com" target="_blank">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a href="#" target="_blank">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" target="_blank">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" target="_blank">
+                                        <i class="fab fa-youtube"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="py-6 px-6 flex justify-between bg-gray-800">
+                            <div class="w-2/3 pr-10">
+                                <h3 class="mb-5 font-semibold text-gray-400">About</h3>
+                
+                                <p class="text-lg text-gray-500">Lorem ipsum bla bla bla. Lorem ipsum bla bla bla. Lorem ipsum bla bla bla.</p>
+                            </div>
+                
+                            <div class="w-1/3">
+                                <h3 class="mb-5 font-semibold text-gray-400">Menu</h3>
+                
+                                <ul class="space-y-2">
+                                    <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">About</a></li>
+                                    <li><a href="{% url 'core:contact' %}" class="text-lg text-teal-500 hover:text-teal-700">Contact</a></li>
+                                    <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Privacy policy</a></li>
+                                    <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Term of use</a></li>
+                                </ul>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+            </section>
+        </main>
+    
+        <div class="controls">
+            <div class="control active-btn" data-id="home" >
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="control" data-id="about">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="control" data-id="portfolio">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <div class="control" data-id="blogs">
+                <i class="far fa-newspaper"></i>
+            </div>
+            <div class="control" data-id="contact">
+                <i class="fas fa-envelope-open"></i>
+            </div>
+        </div>
+        <div class="theme-btn">
+            <i class="fas fa-adjust"></i>
+        </div>
+        <script src="static/js/app.js"></script>
+        <div class="space-x-6">
+           
+        </div>
+    </body>
+</html>
+{% endblock %}
