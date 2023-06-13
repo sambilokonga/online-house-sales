@@ -7,3 +7,8 @@ This is an online house sales software app that allows users to buy and sell hou
 Author(s) LinkedIn: www.linkedin.com/in/abebaw-begna-057130181
 Abebaw Begna
 #### To install and run the app locally, follow these steps:
+Clone the repository: git clone https://github.com/your-username/online-house-sales-app.git
+Navigate to the project directory: cd online-house-sales-app
+Install the dependencies: npm install
+Start the development server: npm start
+Open your browser and visit: http://localhost:3000
