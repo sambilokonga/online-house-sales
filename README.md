@@ -6,3 +6,4 @@ This is an online house sales software app that allows users to buy and sell hou
 #### Final Project Blog Article: Read our blog post
 Author(s) LinkedIn: www.linkedin.com/in/abebaw-begna-057130181
 Abebaw Begna
+#### To install and run the app locally, follow these steps:
