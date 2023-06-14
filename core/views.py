@@ -6,6 +6,13 @@ from .forms import SignupForm
 # Create your views here.
 
 def index(request):
+        """
+    View function for the index page.
+
+    Returns:
+        A rendered HTML response.
+    """
+
     items = Item.objects.filter(is_sold=False)[0:6]
     categories = Category.objects.all()
 
@@ -14,13 +21,33 @@ def index(request):
         'items': items,
     })
 def contact(request):
+        """
+    View function for the contact page.
+
+    Returns:
+        A rendered HTML response.
+    """
+
     return render(request, 'core/contact.html')
 
 def signup(request):
+        """
+    View function for user registration.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        A rendered HTML response.
+    """
+
     if request.method == 'POST':
         form = SignupForm(request.POST)
 
         if form.is_valid():
+            # Create a new user account
+            # Save the user to the database
+
             form.save()
 
             return redirect('/login/')
@@ -33,5 +60,15 @@ def signup(request):
 
 
 def logout(request):
+        """
+    View function for user logout.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        A redirected response.
+    """
+
     auth.logout(request)
     return redirect('/')
